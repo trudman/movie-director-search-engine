@@ -24,4 +24,8 @@ was and receiving a link(s) to their Wikipedia page to learn more relevant infor
 
 ## APIs to be used:
 1. OMDB API
+<<<<<<< HEAD
 2. Wikipedia API
+=======
+2. Wikipedia API
+>>>>>>> 9db76f33cda040c058211dc0215f7712130c6b45
