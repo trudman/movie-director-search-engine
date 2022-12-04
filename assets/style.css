@@ -1,0 +1,9 @@
+* {
+  font-family: "Playfair Display", serif;
+}
+ 
+.card {
+    height: 300px;
+    width: 400px;
+    border: transparent;
+}
