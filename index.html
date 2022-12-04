@@ -13,8 +13,8 @@
   <body><nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand"></a>
     <form class="d-inline-flex">
-      <input class="form-control mx-sm-2" type="search" placeholder="Find a Movie" aria-label="Search">
-      <button class="btn btn-outline-success my-2 m-sm-1" type="submit">Search</button>
+      <input class="form-control mx-sm-2" id="movie-search-input" type="search" placeholder="Find a Movie" aria-label="Search">
+      <button class="btn btn-outline-success my-2 m-sm-1" id="movie-search-button" type="submit">Search</button>
     </form>
   </nav>
   <header class ='p-1 mb-4 bg-dark text-white text-center'>
@@ -105,6 +105,12 @@
   <footer class = 'p-5 mb-4 bg-dark text-white text-center'>
           <section class = 'Source/Citation'>API's: OMDB, Wikipedia [Provided Source/Citation]</section>
   </footer> 
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./assets/OMDBScript.js"></script>
   </body>
 </html>
