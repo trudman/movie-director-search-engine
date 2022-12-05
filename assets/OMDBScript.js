@@ -6,7 +6,9 @@ const omdbIdRoot = 'https://www.omdbapi.com/?i=';
 // establish variable to store user's searched movie
 var searchMovie = [];
 var searchMovieId = [];
+var movies = [];
 var movieData = {};
+var movieDataStorage = {};
 
 // store the search input and search button elements
 var searchButtonEl = document.getElementById('movie-search-button');
@@ -22,7 +24,7 @@ searchBarEl.addEventListener("keypress", function(event) {
       return;
     }
     getSearchCall();    
-    searchBarEl.value = "";    
+    searchBarEl.value = "";
     event.preventDefault();
   }
 })
@@ -72,13 +74,31 @@ function renderMovieData() {
   var movieGenre = movieData.Genre;
   var movieBoxOffice = movieData.BoxOffice;
   var movieDirector = movieData.Director;
+  var movieActors = movieData.Actors;
   var rottenTomatoes = movieData.Ratings[1].Source + ' Score: ' + movieData.Ratings[1].Value;
 
-  console.log('Movie Title: ' + movieTitle);
-  console.log('Movie Director: ' + movieDirector);
-  console.log('Movie Genre: ' + movieGenre);
-  console.log('Box Office: ' + movieBoxOffice);
-  console.log('Movie Release Date: ' + movieReleaseDate);
-  console.log('Movie Rotten Tomatoes: ' + rottenTomatoes);
-  console.log('=================');
+  movieDataStorage = {
+    movieTitle: movieTitle,
+    movieReleaseDate: movieReleaseDate,
+    movieGenre: movieGenre,
+    movieBoxOffice: movieBoxOffice,
+    movieDirector: movieDirector,
+    movieActors: movieActors,
+    rottenTomatoes: rottenTomatoes
+  }
+
+  movies.push(movieDataStorage);
+
+  console.log(movieDataStorage);
+  moviesToLocalStorage(movies);
 }
+
+function moviesToLocalStorage(movies) {
+  localStorage.setItem('movies', JSON.stringify(movies));
+}
+
+function clearLocalStorage() {
+  localStorage.clear();
+}
+
+// clearLocalStorage();
