@@ -13,6 +13,8 @@ var movieDataStorage = {};
 // store the search input and search button elements
 var searchButtonEl = document.getElementById('movie-search-button');
 var searchBarEl = document.querySelector('#movie-search-input');
+var movieCardContainerEl = document.getElementById('movie-card-container');
+var movieCardEl = document.getElementById('test');
 
 // capture movie search value on enter
 searchBarEl.addEventListener("keypress", function(event) {
@@ -102,3 +104,9 @@ function clearLocalStorage() {
 }
 
 // clearLocalStorage();
+
+function renderMovieCard() {
+  movieCardEl.textContent = movieData.movieTitle;
+}
+
+renderMovieCard();
