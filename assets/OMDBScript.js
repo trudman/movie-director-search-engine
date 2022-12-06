@@ -13,8 +13,8 @@ var movieDataStorage = {};
 // store the search input and search button elements
 var searchButtonEl = document.getElementById('movie-search-button');
 var searchBarEl = document.querySelector('#movie-search-input');
-var movieCardContainerEl = document.getElementById('movie-card-container');
-var movieCardEl = document.getElementById('test');
+var movieCardContainerEl = document.getElementById('movie-container');
+var movieCardEl = document.getElementById('movie-card');
 
 // capture movie search value on enter
 searchBarEl.addEventListener("keypress", function(event) {
@@ -25,9 +25,11 @@ searchBarEl.addEventListener("keypress", function(event) {
     if (searchMovie === ''){
       return;
     }
-    getSearchCall();    
+    getSearchCall(); 
     searchBarEl.value = "";
+    
     event.preventDefault();
+    // location.reload(); 
   }
 })
 
@@ -40,8 +42,9 @@ searchButtonEl.addEventListener("click", function(event) {
       return;
     }
     getSearchCall();    
-    searchBarEl.value = "";    
+    searchBarEl.value = "";
     event.preventDefault();
+    // location.reload();
 })
 
 // fetch OMDB API call and return data
@@ -89,10 +92,22 @@ function renderMovieData() {
     rottenTomatoes: rottenTomatoes
   }
 
-  movies.push(movieDataStorage);
+  console.log(movieDataStorage);
 
+  if (movies !== null){
+    movies.push(movieDataStorage);
+  } else {
+    movies = [movieDataStorage];
+  }
+  
+  // movies = movieDataStorage;
+
+  
   console.log(movieDataStorage);
   moviesToLocalStorage(movies);
+  location.reload();
+  renderMovieCard();
+
 }
 
 function moviesToLocalStorage(movies) {
@@ -102,11 +117,63 @@ function moviesToLocalStorage(movies) {
 function clearLocalStorage() {
   localStorage.clear();
 }
-
 // clearLocalStorage();
 
-function renderMovieCard() {
-  movieCardEl.textContent = movieData.movieTitle;
+function init() {
+  movies = JSON.parse(localStorage.getItem("movies"));   
+  if (movies !== null) {
+    renderMovieCard();
+  }
 }
 
-renderMovieCard();
+function renderMovieCard() {
+  console.log(movies);
+
+  for (var i=0; i<movies.length; i++) {
+    var newMovieEl = document.createElement('div');
+    var movieImgEl = document.createElement('img');
+    var movieDivEl = document.createElement('div');
+    var movieTitleEl = document.createElement('h3');
+    var movieTitleEl = document.createElement('h3');
+    // Create ordered list element
+    var listEl = document.createElement("li");
+    // Create ordered list items
+    var li1 = document.createElement("ul");
+    var li2 = document.createElement("ul");
+    var li3 = document.createElement("ul");
+    var li4 = document.createElement("ul");
+  
+    newMovieEl.setAttribute('class', 'card bg-dark text-white');
+    newMovieEl.setAttribute('id', 'movie-card');
+      
+    movieImgEl.setAttribute('src', 'assets/images/photo-1513106580091-1d82408b8cd6.avif');
+    movieImgEl.setAttribute('alt', 'Card image of movie theater seats');
+    movieImgEl.setAttribute('class', 'card-img');
+  
+    movieDivEl.setAttribute('class', 'card-img-overlay');
+    movieTitleEl.setAttribute('class', 'card-title');
+  
+    li1.setAttribute('class', 'rotten-tomato');
+    li2.setAttribute('class', 'genre');
+    li3.setAttribute('class', 'box-office');
+    li4.setAttribute('class', 'director');
+  
+    movieTitleEl.textContent = movies[i].movieTitle;
+    li1.textContent = movies[i].rottenTomatoes;
+    li2.textContent = movies[i].movieGenre;
+    li3.textContent = movies[i].movieBoxOffice;
+    li4.textContent = movies[i].movieDirector;
+  
+    movieCardContainerEl.appendChild(newMovieEl);
+    newMovieEl.appendChild(movieImgEl);
+    newMovieEl.appendChild(movieDivEl);
+    movieDivEl.appendChild(movieTitleEl);
+    movieDivEl.appendChild(listEl);
+    listEl.appendChild(li1);
+    listEl.appendChild(li2);
+    listEl.appendChild(li3);
+    listEl.appendChild(li4);
+  }
+}
+
+init();
