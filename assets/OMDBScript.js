@@ -140,9 +140,7 @@ function renderMovieCard() {
     var li2 = document.createElement("ul");
     var li3 = document.createElement("ul");
     var li4 = document.createElement("ul");
-<<<<<<< HEAD
-    // delete button
-    //var delt = document.getElementsByClassName("delt");
+
 
   
     newMovieEl.setAttribute('class', 'card bg-dark text-white');
@@ -160,24 +158,10 @@ function renderMovieCard() {
     li3.setAttribute('class', 'box-office');
     li4.setAttribute('class', 'director');
   
-=======
 
-    newMovieEl.setAttribute("class", "card bg-light text-black");
-    newMovieEl.setAttribute("id", "movie-card");
 
-    movieImgEl.setAttribute("src", "assets/images/kumiko-shimizu-_PshNniKRy8-unsplash.jpg");
-    movieImgEl.setAttribute("alt", "Card image of movie theater seats");
-    movieImgEl.setAttribute("class", "card-img");
+   
 
-    movieDivEl.setAttribute("class", "card-img-overlay");
-    movieTitleEl.setAttribute("class", "card-title");
-
-    li1.setAttribute("class", "rotten-tomato");
-    li2.setAttribute("class", "genre");
-    li3.setAttribute("class", "box-office");
-    li4.setAttribute("class", "director");
-
->>>>>>> 64f12ad8adf01c56cb1f68b1b91f61fbcc840077
     movieTitleEl.textContent = movies[i].movieTitle;
     li1.textContent = movies[i].rottenTomatoes;
     li2.textContent = movies[i].movieGenre;
@@ -197,53 +181,10 @@ function renderMovieCard() {
   }
 }
 
-<<<<<<< HEAD
-//
-//function delt(event) {
-  //if (button.onclick === "Delete") {
-  //event.target.parentNode.remove();
-//}
-//ul.addEventListener("click", delt);
 
-// To do
 
-var toDo = {
-  cacheDom: function() {
-      this.toDo = ['test'];
-      this.main = document.getElementById('main');
-      this.add = document.getElementById('add');
-      this.toDoValue = document.getElementById('to-do-value');
-  },
-  init: function() {
-      this.cacheDom();
-      this.bindEvents();
-      this.displayToDos();
-  },
-  bindEvents() {
-      this.add.addEventListener("click", this.addToDo.bind(this));
-  },
-  displayToDos: function() {
-      var html = '<ul>';
-      for(i=0; i < this.toDo.length; i++) {
-          html += '<li>' + this.toDo[i] + '</li>' + '<button>delete</button>';
-      }
-      html += '</ul>';
 
-      this.main.innerHTML = html;
-  },
-  addToDo(){
-      var toDoValue = this.toDoValue.value;
-      this.toDo.push(toDoValue);
-      this.displayToDos();
-  },
-  deleteToDo() {
-      console.log("make this delete button work");
-  }
-}
 
-toDo.init();
 
 init();
-=======
-init();
->>>>>>> 64f12ad8adf01c56cb1f68b1b91f61fbcc840077
+
