@@ -142,6 +142,9 @@ function renderMovieCard() {
     var li2 = document.createElement("ul");
     var li3 = document.createElement("ul");
     var li4 = document.createElement("ul");
+    // delete button
+    //var delt = document.getElementsByClassName("delt");
+
   
     newMovieEl.setAttribute('class', 'card bg-dark text-white');
     newMovieEl.setAttribute('id', 'movie-card');
@@ -173,7 +176,53 @@ function renderMovieCard() {
     listEl.appendChild(li2);
     listEl.appendChild(li3);
     listEl.appendChild(li4);
+    
   }
 }
+
+//
+//function delt(event) {
+  //if (button.onclick === "Delete") {
+  //event.target.parentNode.remove();
+//}
+//ul.addEventListener("click", delt);
+
+// To do
+
+var toDo = {
+  cacheDom: function() {
+      this.toDo = ['test'];
+      this.main = document.getElementById('main');
+      this.add = document.getElementById('add');
+      this.toDoValue = document.getElementById('to-do-value');
+  },
+  init: function() {
+      this.cacheDom();
+      this.bindEvents();
+      this.displayToDos();
+  },
+  bindEvents() {
+      this.add.addEventListener("click", this.addToDo.bind(this));
+  },
+  displayToDos: function() {
+      var html = '<ul>';
+      for(i=0; i < this.toDo.length; i++) {
+          html += '<li>' + this.toDo[i] + '</li>' + '<button>delete</button>';
+      }
+      html += '</ul>';
+
+      this.main.innerHTML = html;
+  },
+  addToDo(){
+      var toDoValue = this.toDoValue.value;
+      this.toDo.push(toDoValue);
+      this.displayToDos();
+  },
+  deleteToDo() {
+      console.log("make this delete button work");
+  }
+}
+
+toDo.init();
 
 init();
