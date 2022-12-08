@@ -5,6 +5,8 @@ const wikiSearchRoot = "https://en.wikipedia.org/w/api.php?action=query&origin=*
 
 //Identify movie director
 var directorSearch = [];
+var directorName = movieDirector1;
+console.log(directorSearch)
 
 //Store movie driector by id
 var movieDirector1 = document.getElementById('director-id-1').textContent;
@@ -27,8 +29,8 @@ movieDirector1.onclick = function(event) {
 
 
 
-function wikiSearchCall() {
-    var requestUrl = wikiSearchRoot + '*' + directorSearch;
+function wikiSearchCall(directorName) {
+    var requestUrl = wikiSearchRoot + directorName;
 
     fetch(requestUrl)
         .then(function (response) {
@@ -36,9 +38,13 @@ function wikiSearchCall() {
         })
         .then(function (data) {
             var directoraResults = data;
+            // https://en.wikipedia.org/wiki?curid=736
 
             displayResults();
-            console.log(data);
+            console.log(Object.keys(data.query.pages));
+            for (var prop in data.query.pages){
+                console.log({prop, [prop]:data.query.pages[prop]})
+            }
         });
 
 
