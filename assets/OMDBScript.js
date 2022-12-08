@@ -13,11 +13,11 @@ var movieDataStorage = {};
 // store the search input and search button elements
 var searchButtonEl = document.getElementById('movie-search-button');
 var searchBarEl = document.querySelector('#movie-search-input');
+var movieCardContainerEl2 = $('#movie-container');
 var movieCardContainerEl = document.getElementById('movie-container');
 var movieCardEl = document.getElementById('movie-card');
 var deleteMovieButton = document.getElementById('close-movie-button');
-
-console.log(deleteMovieButton);
+var deleteMovieButton2 = $('#close-movie-button');
 
 // capture movie search value on enter
 searchBarEl.addEventListener("keypress", function(event) {
@@ -74,6 +74,18 @@ function getSearchCall() {
   });
 }
 
+// Reads movies from local storage and returns array of movie objects.
+// Returns an empty array ([]) if there aren't any movies.
+function readMoviesFromStorage() {
+  var movies = localStorage.getItem('movies');
+  if (movies) {
+    movies = JSON.parse(movies);
+  } else {
+    movies = [];
+  }
+  return movies;
+}
+
 // capture relevant information from the fetch call and display
 function renderMovieData() {
   var movieTitle = movieData.Title;
@@ -117,11 +129,14 @@ function clearLocalStorage() {
 // clearLocalStorage();
 
 function init() {
+  movieCardContainerEl2.empty();
   movies = JSON.parse(localStorage.getItem("movies"));   
   if (movies !== null) {
     renderMovieCard();
   }
 }
+
+
 
 function renderMovieCard() {
   console.log(movies);
@@ -177,7 +192,7 @@ function renderMovieCard() {
     li4.textContent = movies[i].movieDirector;
   
     movieCardContainerEl.appendChild(newMovieEl);
-    newMovieEl.dataset.id = i;
+    closeButtonEl.dataset.index = i;
     newMovieEl.appendChild(movieImgEl);
     newMovieEl.appendChild(closeButtonEl);
     newMovieEl.appendChild(movieDivEl);
@@ -187,8 +202,6 @@ function renderMovieCard() {
     listEl.appendChild(li2);
     listEl.appendChild(li3);
     listEl.appendChild(li4);
- 
-    
   }
 }
 
@@ -206,14 +219,17 @@ init();
 
 
 function closeMovieCard() {
-  // var deleteMovieButton = document.getElementById('close-movie-button');
-  var movieDeleteEl = document.querySelectorAll('[data-id]');  
-  // var movieDeleteEl = $(deleteMovieButton).data('id');
-  
-  console.log(movieDeleteEl[0].parentNode);
+  var movieIndex = $(this).attr('data-index');
+  var movies = readMoviesFromStorage();
+
+  console.log(movieIndex);
+
+  movies.splice(movieIndex, 1);
+  moviesToLocalStorage(movies);
+
+  init();
 }
 
 init();
-// closeMovieCard();
-// movieCardEl.addEventListener("click", closeMovieCard);
-// console.log(movieCardEl);
+
+movieCardContainerEl2.on('click', '#close-movie-button', closeMovieCard);
