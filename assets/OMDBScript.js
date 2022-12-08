@@ -148,7 +148,16 @@ function renderMovieCard() {
     closeButtonEl.setAttribute('aria-label', 'close');
     closeButtonEl.setAttribute('id', 'close-movie-button');
 
+<<<<<<< HEAD
     movieImgEl.setAttribute('src', 'assets/images/kumiko-shimizu-_PshNniKRy8-unsplash.jpg');
+=======
+
+  
+    newMovieEl.setAttribute('class', 'card bg-dark text-white');
+    newMovieEl.setAttribute('id', 'movie-card');
+      
+    movieImgEl.setAttribute('src', 'assets/images/photo-1513106580091-1d82408b8cd6.avif');
+>>>>>>> main
     movieImgEl.setAttribute('alt', 'Card image of movie theater seats');
     movieImgEl.setAttribute('class', 'card-img');
   
@@ -160,6 +169,13 @@ function renderMovieCard() {
     li3.setAttribute('class', 'box-office');
     li4.setAttribute('class', 'director');
   
+<<<<<<< HEAD
+=======
+
+
+   
+
+>>>>>>> main
     movieTitleEl.textContent = movies[i].movieTitle;
     li1.textContent = movies[i].rottenTomatoes;
     li2.textContent = movies[i].movieGenre;
@@ -177,6 +193,7 @@ function renderMovieCard() {
     listEl.appendChild(li2);
     listEl.appendChild(li3);
     listEl.appendChild(li4);
+<<<<<<< HEAD
 
     closeMovieCard();
   }
@@ -194,3 +211,16 @@ init();
 // closeMovieCard();
 // movieCardEl.addEventListener("click", closeMovieCard);
 // console.log(movieCardEl);
+=======
+    
+  }
+}
+
+
+
+
+
+
+init();
+
+>>>>>>> main
