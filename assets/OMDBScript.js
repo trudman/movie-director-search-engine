@@ -149,15 +149,21 @@ function renderMovieCard() {
     closeButtonEl.setAttribute('id', 'close-movie-button');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> html
 
   
     newMovieEl.setAttribute('class', 'card bg-dark text-white');
     newMovieEl.setAttribute('id', 'movie-card');
       
     movieImgEl.setAttribute('src', 'assets/images/photo-1513106580091-1d82408b8cd6.avif');
+<<<<<<< HEAD
 =======
     movieImgEl.setAttribute('src', 'assets/images/kumiko-shimizu-_PshNniKRy8-unsplash.jpg');
 >>>>>>> eab9ad17ba4e0a09f8caf67cff2c1d30168757c1
+=======
+>>>>>>> html
     movieImgEl.setAttribute('alt', 'Card image of movie theater seats');
     movieImgEl.setAttribute('class', 'card-img');
   
@@ -170,12 +176,18 @@ function renderMovieCard() {
     li4.setAttribute('class', 'director');
   
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> html
 
 
    
 
+<<<<<<< HEAD
 =======
 >>>>>>> eab9ad17ba4e0a09f8caf67cff2c1d30168757c1
+=======
+>>>>>>> html
     movieTitleEl.textContent = movies[i].movieTitle;
     li1.textContent = movies[i].rottenTomatoes;
     li2.textContent = movies[i].movieGenre;
@@ -194,6 +206,9 @@ function renderMovieCard() {
     listEl.appendChild(li3);
     listEl.appendChild(li4);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> html
     
   }
 }
@@ -205,6 +220,7 @@ function renderMovieCard() {
 
 init();
 
+<<<<<<< HEAD
 =======
 
     closeMovieCard();
@@ -224,3 +240,5 @@ init();
 // movieCardEl.addEventListener("click", closeMovieCard);
 // console.log(movieCardEl);
 >>>>>>> eab9ad17ba4e0a09f8caf67cff2c1d30168757c1
+=======
+>>>>>>> html
