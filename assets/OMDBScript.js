@@ -7,6 +7,7 @@ const omdbIdRoot = 'https://www.omdbapi.com/?i=';
 var searchMovie = [];
 var searchMovieId = [];
 var movies = [];
+var directorLinks = [];
 var movieData = {};
 var movieDataStorage = {};
 
@@ -18,6 +19,11 @@ var movieCardContainerEl = document.getElementById('movie-container');
 var movieCardEl = document.getElementById('movie-card');
 var deleteMovieButton = document.getElementById('close-movie-button');
 var deleteMovieButton2 = $('#close-movie-button');
+
+
+const wikiSearchRoot =
+  "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=";
+
 
 // capture movie search value on enter
 searchBarEl.addEventListener("keypress", function(event) {
@@ -86,15 +92,30 @@ function readMoviesFromStorage() {
   return movies;
 }
 
+var movieDirector = [];
+var wikiLinks = [];
+
 // capture relevant information from the fetch call and display
 function renderMovieData() {
   var movieTitle = movieData.Title;
   var movieReleaseDate = movieData.Released;
   var movieGenre = movieData.Genre;
   var movieBoxOffice = movieData.BoxOffice;
-  var movieDirector = movieData.Director;
+  movieDirector = movieData.Director;
   var movieActors = movieData.Actors;
   var rottenTomatoes = movieData.Ratings[1].Source + ' Score: ' + movieData.Ratings[1].Value;
+
+  console.log(movieDirector);
+  
+
+  // for (var i=0; i<directorSearch.length; i++) {
+  //   var directorLink = "https://en.wikipedia.org/wiki?curid=" + directorSearch[i]
+  //   console.log(directorLinks);
+  //   directorLinks.push(directorLink);
+  //   console.log(directorLinks);
+  //   console.log(directorSearch);
+  //   console.log(directorSearch);
+  // }
 
   movieDataStorage = {
     movieTitle: movieTitle,
@@ -103,24 +124,15 @@ function renderMovieData() {
     movieBoxOffice: movieBoxOffice,
     movieDirector: movieDirector,
     movieActors: movieActors,
-    rottenTomatoes: rottenTomatoes
+    rottenTomatoes: rottenTomatoes,
   }
 
-  console.log(movieDataStorage);
-
-  if (movies !== null){
-    movies.push(movieDataStorage);
-  } else {
-    movies = [movieDataStorage];
-  }
-  
-  console.log(movieDataStorage);
-  moviesToLocalStorage(movies);  
-  location.reload();
+  wikiSearchCall();
 }
 
 function moviesToLocalStorage(movies) {
   localStorage.setItem('movies', JSON.stringify(movies));
+  location.reload();
 }
 
 function clearLocalStorage() {
@@ -136,10 +148,7 @@ function init() {
   }
 }
 
-
-
 function renderMovieCard() {
-  console.log(movies);
 
   for (var i=0; i<movies.length; i++) {
     var newMovieEl = document.createElement('div');
@@ -149,12 +158,12 @@ function renderMovieCard() {
     var movieTitleEl = document.createElement('h3');
     var movieTitleEl = document.createElement('h3');
     // Create ordered list element
-    var listEl = document.createElement("li");
+    var listEl = document.createElement("ul");
     // Create ordered list items
-    var li1 = document.createElement("ul");
-    var li2 = document.createElement("ul");
-    var li3 = document.createElement("ul");
-    var li4 = document.createElement("ul");
+    var li1 = document.createElement("div");
+    var li2 = document.createElement("div");
+    var li3 = document.createElement("div");
+    var li4 = document.createElement("div");
   
     newMovieEl.setAttribute('class', 'card bg-dark text-black');
     newMovieEl.setAttribute('id', 'movie-card');
@@ -170,16 +179,21 @@ function renderMovieCard() {
     movieDivEl.setAttribute('class', 'card-img-overlay');
     movieTitleEl.setAttribute('class', 'card-title');
   
+    listEl.setAttribute('class', 'list-element');
     li1.setAttribute('class', 'rotten-tomato');
     li2.setAttribute('class', 'genre');
     li3.setAttribute('class', 'box-office');
     li4.setAttribute('class', 'director');
+
+
   
     movieTitleEl.textContent = movies[i].movieTitle;
     li1.textContent = movies[i].rottenTomatoes;
     li2.textContent = movies[i].movieGenre;
     li3.textContent = movies[i].movieBoxOffice;
     li4.textContent = movies[i].movieDirector;
+
+    
   
     movieCardContainerEl.appendChild(newMovieEl);
     closeButtonEl.dataset.index = i;
@@ -192,14 +206,45 @@ function renderMovieCard() {
     listEl.appendChild(li2);
     listEl.appendChild(li3);
     listEl.appendChild(li4);
+
+    var linksToRender = movies[i].wikiLinks;
+
+    if (linksToRender[0]) {
+      var li5 = document.createElement("div");
+      var a = document.createElement("a");
+      a.setAttribute('target', "_blank");
+      a.textContent = 'WikiLink 1';
+      a.href = linksToRender[0];
+      li5.appendChild(a);
+      listEl.appendChild(li5);
+    }
+
+    if (linksToRender[1]) {
+      var li6 = document.createElement("div");
+      var a = document.createElement("a");
+      a.setAttribute('target', "_blank");
+      a.textContent = 'WikiLink 2';
+      a.href = linksToRender[1];
+      li6.appendChild(a);
+      listEl.appendChild(li6);
+    }
+
+    if (linksToRender[2]) {
+      var li7 = document.createElement("div");
+      var a = document.createElement("a");
+      a.setAttribute('target', "_blank");
+      a.textContent = 'WikiLink 3';
+      a.href = linksToRender[2];
+      li7.appendChild(a);
+      listEl.appendChild(li7);
+    }
+
   }
 }
 
 function closeMovieCard() {
   var movieIndex = $(this).attr('data-index');
   var movies = readMoviesFromStorage();
-
-  console.log(movieIndex);
 
   movies.splice(movieIndex, 1);
   moviesToLocalStorage(movies);

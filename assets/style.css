@@ -27,3 +27,15 @@
 #close-movie-button:hover {
   cursor: pointer;
 }
+
+.list-element{
+  padding: 0;
+}
+
+.list-element div{
+  padding-bottom: 4px;
+}
+
+.director{
+  margin-bottom: 8px;
+}
