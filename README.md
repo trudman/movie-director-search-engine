@@ -1,31 +1,26 @@
-# Project Title: Movie Director Search Engine
+# Movie Director Search Engine
 
-## Description:
+## Description
 
-```
-This project demonstrates the capability of linking two open-source APIs by first determining what the top box-office movies were for a given year 
-and parsing who the movie's director was through the OMDB API, then performing a search of that director via the Wikipedia API.
-```
+This project was our first chance to work as a team to develop a working application. We were able to work as a group in order to create a movie director search engine. As a group we were able to work as a team to determine who would be working through the individual pieces of the project. As a group, we decided to create a movie director search engine using the OMDB API and Wikipedia API.
 
-## User Story:
+We created an application that movie producers would be able to utilize in order to find/learn more about successful movie directors to hire them for upcoming projects. We utilized the OMDB API to search for movies and display movie title, rotten tomato score, genre, box office revenue and director. We then utilized the Wikipedia API to link the wikipedia pages of the director.
 
-```
-As a movie producer, I am interested in learning what the top grossing box-office hits were for a given release year and finding who the director
-was and receiving a link(s) to their Wikipedia page to learn more relevant information about he/she.
-```
+We displayed all of this information on the screen by using an interactive UI built through HTML, BootStrap and CSS.
 
+## Installation
 
-## Acceptance Criteria (Breakdown of Tasks):
+NA
 
-* It is done when there is a combo/dropdown box listing the past 10 years to perform a search on movie release dates
-* When I perform a search on the parameters above, then a list of the top 6 box-office grossing movies are displayed
-* From the top 6 list of movies, the page displays the movie Title, the Year, the Genre, amount grossed at Box Office, Director, and [Rotten Tomatoes Score]
-* After displaying the top 6 list of movies, a link is provided on the Director to show results from the Wikipedia API
+## Usage
 
-## APIs to be used:
-1. OMDB API
-<<<<<<< HEAD
-2. Wikipedia API
-=======
-2. Wikipedia API
->>>>>>> 9db76f33cda040c058211dc0215f7712130c6b45
+To use this movie director search engine the user will search for popular movies using the search bar located on the top right of the page. Once the user searches for a movie the title, rottem tomato score, genre, box office revenue and diector will display. The user will also be provided the top 3 Wikipedia hits on the director to find more information about them. The information will be stored local storage so the user does not lose the movies they have searched for. The user will be able to close out of movies with a close button displayed on the screen.
+
+[Link]https://trudman.github.io/movie-director-search-engine/
+
+![Screenshot](assets/images/Screenshot%202022-12-11%20at%203.04.30%20PM.png)
+
+## Credit
+
+[Link]https://www.omdbapi.com/
+[Link]https://www.mediawiki.org/wiki/API:Main_page
