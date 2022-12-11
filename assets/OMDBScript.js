@@ -10,6 +10,8 @@ var movies = [];
 var directorLinks = [];
 var movieData = {};
 var movieDataStorage = {};
+var movieDirector = [];
+var wikiLinks = [];
 
 // store the search input and search button elements
 var searchButtonEl = document.getElementById('movie-search-button');
@@ -20,7 +22,7 @@ var movieCardEl = document.getElementById('movie-card');
 var deleteMovieButton = document.getElementById('close-movie-button');
 var deleteMovieButton2 = $('#close-movie-button');
 
-
+// establish the wiki API
 const wikiSearchRoot =
   "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=";
 
@@ -37,7 +39,6 @@ searchBarEl.addEventListener("keypress", function(event) {
     getSearchCall();
     searchBarEl.value = "";    
     event.preventDefault();
-    // location.reload(); 
   }
 })
 
@@ -52,7 +53,6 @@ searchButtonEl.addEventListener("click", function(event) {
     getSearchCall();
     searchBarEl.value = "";
     event.preventDefault();
-    // location.reload();
 })
 
 // fetch OMDB API call and return data
@@ -92,8 +92,6 @@ function readMoviesFromStorage() {
   return movies;
 }
 
-var movieDirector = [];
-var wikiLinks = [];
 
 // capture relevant information from the fetch call and display
 function renderMovieData() {
@@ -105,18 +103,7 @@ function renderMovieData() {
   var movieActors = movieData.Actors;
   var rottenTomatoes = movieData.Ratings[1].Source + ' Score: ' + movieData.Ratings[1].Value;
 
-  console.log(movieDirector);
-  
-
-  // for (var i=0; i<directorSearch.length; i++) {
-  //   var directorLink = "https://en.wikipedia.org/wiki?curid=" + directorSearch[i]
-  //   console.log(directorLinks);
-  //   directorLinks.push(directorLink);
-  //   console.log(directorLinks);
-  //   console.log(directorSearch);
-  //   console.log(directorSearch);
-  // }
-
+  // store the returned movie information into an object to be placed in localStorage
   movieDataStorage = {
     movieTitle: movieTitle,
     movieReleaseDate: movieReleaseDate,
@@ -127,19 +114,23 @@ function renderMovieData() {
     rottenTomatoes: rottenTomatoes,
   }
 
+  // call our second API, wikipedia, to provide links to searched director name
   wikiSearchCall();
 }
 
+// store our movie data to localStorage
 function moviesToLocalStorage(movies) {
   localStorage.setItem('movies', JSON.stringify(movies));
   location.reload();
 }
 
+// dummy function to clear all localStorage for debugging
 function clearLocalStorage() {
   localStorage.clear();
 }
 // clearLocalStorage();
 
+// initial function call to capture data from localStorage and render on page
 function init() {
   movieCardContainerEl2.empty();
   movies = JSON.parse(localStorage.getItem("movies"));   
@@ -148,6 +139,7 @@ function init() {
   }
 }
 
+// function to display the movie information along with 3 wiki links, searching for the director name
 function renderMovieCard() {
 
   for (var i=0; i<movies.length; i++) {
@@ -164,7 +156,8 @@ function renderMovieCard() {
     var li2 = document.createElement("div");
     var li3 = document.createElement("div");
     var li4 = document.createElement("div");
-  
+
+    // set the attributes of the newly created elements for styling and text input
     newMovieEl.setAttribute('class', 'card bg-dark text-black');
     newMovieEl.setAttribute('id', 'movie-card');
     closeButtonEl.setAttribute('type', 'button');
@@ -184,17 +177,15 @@ function renderMovieCard() {
     li2.setAttribute('class', 'genre');
     li3.setAttribute('class', 'box-office');
     li4.setAttribute('class', 'director');
-
-
   
+    // add the text content that is returned from the OMDB API
     movieTitleEl.textContent = movies[i].movieTitle;
     li1.textContent = movies[i].rottenTomatoes;
     li2.textContent = movies[i].movieGenre;
     li3.textContent = movies[i].movieBoxOffice;
-    li4.textContent = movies[i].movieDirector;
-
-    
+    li4.textContent = movies[i].movieDirector;    
   
+    // render the movie cards on the page by appending to the movie container and movie cards
     movieCardContainerEl.appendChild(newMovieEl);
     closeButtonEl.dataset.index = i;
     newMovieEl.appendChild(movieImgEl);
@@ -207,8 +198,10 @@ function renderMovieCard() {
     listEl.appendChild(li3);
     listEl.appendChild(li4);
 
+    // create a variable to store the returned wiki urls from the searched director name
     var linksToRender = movies[i].wikiLinks;
 
+    // return the top 3 wiki urls for the director and add them to the movie card as a clickable link
     if (linksToRender[0]) {
       var li5 = document.createElement("div");
       var a = document.createElement("a");
@@ -242,6 +235,7 @@ function renderMovieCard() {
   }
 }
 
+// function to close a movie card if the user no longer wants it displayed
 function closeMovieCard() {
   var movieIndex = $(this).attr('data-index');
   var movies = readMoviesFromStorage();
@@ -253,5 +247,5 @@ function closeMovieCard() {
 }
 
 init();
-
+// click event to close the selected movie card
 movieCardContainerEl2.on('click', '#close-movie-button', closeMovieCard);
