@@ -1,13 +1,8 @@
-// Wiki API search root url
-// const wikiSearchRoot =
-//   "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch=";
-
 // Identify movie director
 var directorSearch = [];
 var directorLinks = [];
-// movieDirector = "Albert Einstein";
 
-
+// establish request url based on returned Director name from OMDB API
 function wikiSearchCall() {
   var requestUrl = wikiSearchRoot + movieDirector;
 
@@ -16,21 +11,19 @@ function wikiSearchCall() {
       return response.json();
     })
     .then(function (data) {
-
+      // fetch the pageId for the searched Director in order to establish url
       var pageId = (Object.keys(data.query.pages));
       for (var i=0; i<pageId.length; i++) {
         var directorLink = "https://en.wikipedia.org/wiki?curid=" + pageId[i];
         directorLinks.push(directorLink);
       }
 
+      // store the pageId and the link in a variable
       directorSearch.push(pageId);
-      // console.log(directorSearch);
-      console.log(directorLinks);
       wikiLinks.push(directorLinks);
-      console.log(wikiLinks);
       
+      // add the links to an object then if not null push to our movieDataStorage array for localStorage
       Object.assign(movieDataStorage, {wikiLinks: directorLinks})
-      console.log(movieDataStorage);
 
       if (movies !== null){
         movies.push(movieDataStorage);
